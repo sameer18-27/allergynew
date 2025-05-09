@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AllergyBuster | Complete Allergy Management</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="js/main.js" defer></script>
+</head>
+<body>
+    <!-- Header Component -->
+    <div id="header"></div>
+
+    <!-- Hero Section -->
+    <div id="hero"></div>
+
+    <!-- Dashboard Section -->
+    <div id="dashboard"></div>
+
+    <!-- Features Section -->
+    <div id="features" class="section-container"></div>
+
+    <!-- About Section -->
+    <div id="about" class="section-container"></div>
+
+    <!-- Contact Section -->
+    <div id="contact" class="section-container"></div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>AllergyBuster</h3>
+                <p>Your complete solution for allergy management.</p>
+                            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="features.html">Features</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                        </ul>
+                    </div>
+            <div class="footer-section">
+                <h3>Connect With Us</h3>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                            </div>
+                        </div>
+                                </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 AllergyBuster. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Load components
+document.addEventListener('DOMContentLoaded', function() {
+            // Load header
+            fetch('components/header.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('header').innerHTML = data;
+                });
+
+            // Load hero
+            fetch('components/hero.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('hero').innerHTML = data;
+                });
+
+            // Load dashboard
+            fetch('components/dashboard.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('dashboard').innerHTML = data;
+                    initializeDashboard();
+                });
+
+            // Load features
+            fetch('components/features.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('features').innerHTML = data;
+                });
+
+            // Load about
+            fetch('components/about.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('about').innerHTML = data;
+                });
+
+            // Load contact
+            fetch('components/contact.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('contact').innerHTML = data;
+    });
+});
+
+        // Initialize dashboard functionality
+        function initializeDashboard() {
+            // Initialize symptom chart
+            const ctx = document.getElementById('symptomChart').getContext('2d');
+            new Chart(ctx, {
+            type: 'line',
+            data: {
+                    labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                datasets: [{
+                        label: 'Symptom Severity',
+                        data: [3, 4, 2, 5, 3, 4, 3],
+                        borderColor: '#4A6FA5',
+                        tension: 0.4,
+                        fill: true,
+                        backgroundColor: 'rgba(74, 111, 165, 0.1)'
+                }]
+            },
+            options: {
+                responsive: true,
+                    maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                            max: 5
+                    }
+                }
+            }
+        });
+
+            // Add event listeners for dashboard interactions
+            document.getElementById('timeRange').addEventListener('change', function(e) {
+                // Update chart data based on selected time range
+                console.log('Time range changed:', e.target.value);
+            });
+
+            // Add symptom input handler
+            const addSymptomBtn = document.querySelector('.symptom-input button');
+            const newSymptomInput = document.getElementById('newSymptom');
+            
+            addSymptomBtn.addEventListener('click', function() {
+                const symptom = newSymptomInput.value.trim();
+                if (symptom) {
+                    // Add new symptom to the list
+                    console.log('Adding new symptom:', symptom);
+                    newSymptomInput.value = '';
+                }
+            });
+        }
+
+        // Smooth scroll for hash links
+        document.addEventListener('click', function(e) {
+            if (e.target.tagName === 'A' && e.target.getAttribute('href') && e.target.getAttribute('href').startsWith('#')) {
+                const id = e.target.getAttribute('href').substring(1);
+                const section = document.getElementById(id);
+                if (section) {
+      e.preventDefault();
+                    section.scrollIntoView({ behavior: 'smooth' });
+                }
+            }
+        });
+</script>
+</body>
+</html>
